@@ -8,5 +8,5 @@ const BD_charset = 'utf8';
 
 
 //ingresar link de proyecto
-const BD_url = '';
+const BASE_URL  = '';
 ?>
