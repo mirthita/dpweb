@@ -8,19 +8,8 @@ class Conexion{
         date_default_timezone_set("America/Lima");
         if (mysqli_connect_errno()) {
             echo "Error de Conexion:". mysqli_connect_errno();
-        }else{
-            echo "Conexion Exitosa";
         }
+        return $mysql;
     }
 }
-$mysql= new mysqli(BD_HOST,BD_USER,BD_PASSWORD,BD_NAME);
-        $mysql->set_charset(BD_CHARSET);
-        date_default_timezone_set("America/Lima");
-        if (mysqli_connect_errno()) {
-            echo "Error de Conexion:". mysqli_connect_errno();
-        }else{
-            echo "Conexion Exitosa";
-        }
-
-
 ?>
