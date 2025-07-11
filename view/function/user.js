@@ -69,7 +69,7 @@ async function iniciar_sesion() {
         
         
     }catch (error) {
-        console.log(error);    
+        console.log(error);
     }
 }
 
