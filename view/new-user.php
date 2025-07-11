@@ -1,5 +1,4 @@
-
-    <!-- Inicio de cuerpo de pagina -->
+<!-- Inicio de cuerpo de pagina -->
     <div class="container-fluid">
         <div class="card">
             <h5 class="card-header">Registro de Usuario</h5>

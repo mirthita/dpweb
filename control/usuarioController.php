@@ -3,8 +3,6 @@ require_once("../model/UsuarioModel.php");
 
 $objPersona = new UsuarioModel();
 
-
-
 $tipo = $_GET['tipo'];
 
 if ($tipo == "registrar") {
@@ -41,3 +39,27 @@ if ($tipo == "registrar") {
     }
     echo json_encode($arrResponse);
 }
+if ($tipo == "iniciar_sesion") {
+    $nro_doc = $_POST['username'];
+    $password = $_POST['password'];
+    if ($nro_doc == "" || $password == "") {
+        $respuesta = array('status' => false, 'msg' => 'Error, campos vacios');
+    } else {
+        $existePersona = $objPersona->existePersona($nro_doc);
+        if (!$existePersona) {
+            $respuesta = array('status' => false, 'msg' => 'Error, usuario no existe');
+        } else {
+            $persona = $objPersona->buscarPersonaPorNroIdentidad($nro_doc);
+            if (password_verify($password, $persona->password)) {
+                session_start();
+                $_SESSION['venta_id'] = $persona->id;
+                $_SESSION['ventas_usuario'] = $persona->razon_social;
+                $respuesta = array('status' => true, 'msg' => 'ok ');
+            } else {
+                $respuesta = array('status' => false, 'msg' => 'Error, contraseña incorrecta');
+            }
+        }
+    }
+    echo json_encode($respuesta);
+}
+

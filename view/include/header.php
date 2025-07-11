@@ -9,7 +9,7 @@
     <script>
         const bd_url = '<?php echo BD_URL; ?>';
     </script>
-</head>
+</head> 
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
