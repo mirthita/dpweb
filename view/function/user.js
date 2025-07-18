@@ -32,7 +32,7 @@ async function registrarUsuario(params) {
         //capturar campos de formularios (HTML);
         const datos = new FormData(frm_user);
         //enviar datos a controlador 
-        let respuesta = await fetch (bd_url + 'control/usuarioController.php? tipo=registrar',{
+        let respuesta = await fetch(bd_url + 'control/usuarioController.php? tipo=registrar', {
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
@@ -42,11 +42,11 @@ async function registrarUsuario(params) {
         //validamos que json.status sea = true
         if (json.status) {
             alert(json.msg);
-            document.getElementById('frm_user'),reset();
-        }else {
+            document.getElementById('frm_user'), reset();
+        } else {
             alert(json.msg);
         }
-    } catch (e){
+    } catch (e) {
         console.log("Error al registrar usuario:" + e);
     }
 }
@@ -54,11 +54,11 @@ async function registrarUsuario(params) {
 async function iniciar_sesion() {
     let usuario = document.getElementById("username").value;
     let password = document.getElementById("password").value;
-    if(usuario == "" || password == "") {
+    if (usuario == "" || password == "") {
         alert("Error, campos vacios!");
         return;
     }
-    try{
+    try {
         const datos = new FormData(form_login);
         let respuesta = await fetch(bd_url + 'control/usuarioController.php?tipo=iniciar_sesion', {
             method: 'POST',
@@ -66,11 +66,37 @@ async function iniciar_sesion() {
             cache: 'no-cache',
             body: datos
         });
-        
-        
-    }catch (error) {
+        let json = await respuesta.json();
+        //validamos que json.status sea = true
+        if (json.status) {
+            alert(json.msg);
+            location.replace(bd_url + 'users');
+            //document.getElementById('frm_user'), reset();
+        } else {
+            alert(json.msg);
+        }
+
+
+    } catch (error) {
         console.log(error);
     }
 }
+
+async function view_users() {
+    try{
+        let respuesta = await fetch(bd_url + 'control/usuarioController.php?tipo=view_users', {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache'
+        });
+
+    }catch (error) {
+    }
+}
+if (document.getElementById('content_users')) {
+    view_users();
+}
+
+
 
 
