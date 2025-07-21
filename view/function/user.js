@@ -52,7 +52,7 @@ async function registrarUsuario(params) {
 }
 
 async function iniciar_sesion() {
-    let usuario = document.getElementById("username").value;
+    let usuario = document.getElementById("username").value;//obtiene los valores del login
     let password = document.getElementById("password").value;
     if (usuario == "" || password == "") {
         alert("Error, campos vacios!");
@@ -60,42 +60,41 @@ async function iniciar_sesion() {
     }
     try {
         const datos = new FormData(form_login);
-        let respuesta = await fetch(bd_url + 'control/usuarioController.php?tipo=iniciar_sesion', {
+        let respuesta = await fetch(bd_url + 'control/UsuarioController.php?tipo=iniciar_sesion', {
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
             body: datos
         });
+        //--------------------------
         let json = await respuesta.json();
         //validamos que json.status sea = true
-        if (json.status) {
-            alert(json.msg);
-            location.replace(bd_url + 'users');
-            //document.getElementById('frm_user'), reset();
+        if (json.status) { //true
+            location.replace(bd_url + 'new-user');
         } else {
             alert(json.msg);
         }
-
 
     } catch (error) {
         console.log(error);
     }
 }
 
-async function view_users() {
-    try{
-        let respuesta = await fetch(bd_url + 'control/usuarioController.php?tipo=view_users', {
+
+async function ver_usuarios() {
+    try {
+        let respuesta = await fetch(bd_url + 'control/UsuarioController.php?tipo=ver_usuarios', {
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache'
         });
+    } catch (error) {
 
-    }catch (error) {
     }
 }
 if (document.getElementById('content_users')) {
-    view_users();
-}
+    ver_usuarios();
+    }
 
 
 
