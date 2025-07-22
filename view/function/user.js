@@ -88,13 +88,33 @@ async function ver_usuarios() {
             mode: 'cors',
             cache: 'no-cache'
         });
+        let json = await respuesta.json(); 
+        let content_users = document.getElementById('content_users');
+        content_users.innerHTML = ''; 
+
+        json.forEach((user, index) => {
+            let fila = document.createElement('tr');
+            fila.innerHTML = `
+                <td>${index + 1}</td>
+                <td>${user.nro_identidad}</td>
+                <td>${user.razon_social}</td>
+                <td>${user.correo}</td>
+                <td>${user.rol}</td>
+                <td>${user.estado}</td>
+                <td>
+                <a href="`+ bd_url+`edit_user/`+user.id+`"> Editar </a>
+                </td>
+            `;
+            content_users.appendChild(fila);
+        });
     } catch (error) {
 
     }
 }
 if (document.getElementById('content_users')) {
     ver_usuarios();
-    }
+}
+
 
 
 

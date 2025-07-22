@@ -33,6 +33,9 @@
             background-size: 50px 50px;
             animation: float 20s ease-in-out infinite;
         }
+        nav {
+            display: none !important;
+        }
 
         .login-container {
             background: rgba(255, 255, 255, 0.95);

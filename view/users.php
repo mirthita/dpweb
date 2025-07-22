@@ -9,6 +9,7 @@
             <th>Correo</th>
             <th>Rol</th>
             <th>Estado</th>
+            <th>Aciones</th>
         </tr>
     </thead>
     <tbody id="content_users">
