@@ -1,31 +1,20 @@
 
-    <!-- Inicio de cuerpo de pagina-->
-    <div class="container mt-5">
-        <div class="card">
-            <h5 class="card-header">Registro de Categoría</h5>
-            <form id="frm_categoria" action="" method="post">
-                <div class="card-body">
-                    <div class="mb-3 row">
-                        <label for="nombre" class="col-sm-2 col-form-label">Nombre:</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="nombre" name="nombre" required>
-                        </div>
-                    </div>
+<div class="container">
+    <h4 class="mt-3 mb-3">Lista de Categorias</h4>
+    <a href="<?= BD_URL ?>new-categoria" class="btn btn-primary">Nuevo +</a>
+    <br><br>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Nro</th>
+                <th>Nombre</th>
+                <th>Detalle</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="content_categorias">
 
-                    <div class="mb-3 row">
-                        <label for="detalle" class="col-sm-2 col-form-label">Detalle:</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="detalle" name="detalle" required>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-success">Registrar</button>
-                    <button type="reset" class="btn btn-secondary">Limpiar</button>
-                    <button type="button" class="btn btn-danger">Cancelar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <!-- Final de cuerpo de pagina -->
-
-    <script src="<?php echo BD_URL; ?>view/function/categoria.js"></script>
+        </tbody>
+    </table>
+</div>
+<script src="<?= BD_URL ?>view/function/categoria.js"></script>

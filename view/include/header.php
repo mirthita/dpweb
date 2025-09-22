@@ -26,7 +26,7 @@
                         <a class="nav-link" href="<?= BD_URL;?>users">users</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">products</a>
+                        <a class="nav-link" href="<?php echo BD_URL; ?>products">products</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo BD_URL; ?>categoria">categories</a>

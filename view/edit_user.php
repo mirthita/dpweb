@@ -1,8 +1,16 @@
 <!-- Inicio de cuerpo de pagina -->
     <div class="container-fluid">
         <div class="card">
-            <h5 class="card-header">Registro de Usuario</h5>
-            <form id="frm_user" action="" method="">
+            <h5 class="card-header">Editar Usuario</h5>
+            <?php
+            if (isset($_GET["views"])) {
+                $ruta = explode("/", $_GET["views"]);
+                //echo $ruta[1];
+
+            }
+            ?>
+            <form id="frm_edit_user" action="" method="">
+                <input type="hidden" id="id_persona" name="id_persona" value="<?= $ruta[1]?>">
                 <div class="card-body">
                     <div class="mb-3 row">
                         <label for="nro_doc" class="col-sm-2 col-form-label">Nro de Documento :</label>
@@ -67,17 +75,19 @@
                                 <option value="" disabled selected>Seleccione</option>
                                 <option value="Administrador">Administrador</option>
                                 <option value="Vendedor">Vendedor</option>
-                                <option value="Cliente">Cliente</option>
+                                <option value="Empleado">Empleado</option>
                             </select>
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-dorger">Registrar</button>
-                    <button type="reset" class="btn btn-primary">Limpiar</button>
-                    <button type="button" class="btn btn-danger">Cancelar</button>
+                    <button type="submit" class="btn btn-dorger">Actualizar</button>
+                    <a href="<?= BD_URL ?>users" class="btn btn-danger">Cancelar</a>
             </form>
-                </div>
+            </div>
         </div>
     </div>
     <!-- Fin de cuerpo de pagina -->
 <script src="<?php echo BD_URL; ?>view/function/user.js"></script>
+<script>
+    edit_user();
+</script>

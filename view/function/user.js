@@ -1,4 +1,4 @@
-function validar_form() {
+function validar_form(tipo) {
     let nro_documento = document.getElementById("nro_doc").value;
     let razon_social = document.getElementById("Razon_social").value;
     let telefono = document.getElementById("Telefono").value;
@@ -14,7 +14,13 @@ function validar_form() {
         alert("Error: Existen Campos vacios");
         return;
     }
-    registrarUsuario();
+    if (tipo == "nuevo") {
+    registrarUsuario();   
+    }
+        if (tipo == "actualizar") {
+    actualizarUsuario();   
+    }
+    
 }
 
 if (document.querySelector('#frm_user')) {
@@ -22,9 +28,8 @@ if (document.querySelector('#frm_user')) {
     let frm_user = document.querySelector('#frm_user');
     frm_user.onsubmit = function (e) {
         e.preventDefault();
-        validar_form();
+        validar_form("nuevo");
     }
-
 }
 
 async function registrarUsuario(params) {
@@ -102,8 +107,10 @@ async function ver_usuarios() {
                 <td>${user.rol}</td>
                 <td>${user.estado}</td>
                 <td>
-                <a href="`+ bd_url+`edit_user/`+user.id+`"> Editar </a>
+                <a href="`+ bd_url+`edit-user/`+user.id+`"> Editar </a>
+                <button type="button" class="btn btn-danger" onclick="eliminarUsuario(`+ user.id+`)"> Eliminar </button>
                 </td>
+
             `;
             content_users.appendChild(fila);
         });
@@ -115,7 +122,87 @@ if (document.getElementById('content_users')) {
     ver_usuarios();
 }
 
+async function edit_user() {
+    try{
+        let id_persona = document.getElementById('id_persona').value;
+        const datos = new FormData();
+        datos.append('id_persona', id_persona);
 
+        let respuesta = await fetch(bd_url + 'control/UsuarioController.php?tipo=ver', {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            body: datos
+        });
+        json = await respuesta.json();
+        if (!json.status) {
+            alert(json.msg);
+            return;
+        }
+        document.getElementById('nro_doc').value = json.data.nro_identidad;
+        document.getElementById('Razon_social').value = json.data.razon_social;
+        document.getElementById('Telefono').value = json.data.telefono;
+        document.getElementById('correo').value = json.data.correo;
+        document.getElementById('Departamento').value = json.data.departamento;
+        document.getElementById('Provincia').value = json.data.provincia;
+        document.getElementById('distrito').value = json.data.distrito;
+        document.getElementById('Codigo_postal').value = json.data.cod_postal;
+        document.getElementById('Direccion').value = json.data.direccion;
+        document.getElementById('Rol').value = json.data.rol;
+
+
+    }catch(error){
+        console.log('oops, que bruto pongale cero'+ error);
+    }
+}
+if (document.querySelector('#frm_edit_user')) {
+    //evita que se envie el formulario
+    let frm_user = document.querySelector('#frm_edit_user');
+    frm_user.onsubmit = function (e) {
+        e.preventDefault();
+        validar_form("actualizar");
+    }
+}
+
+async function actualizarUsuario() {
+    const datos = new FormData(frm_edit_user);
+    let respuesta = await fetch(bd_url + 'control/UsuarioController.php?tipo=actualizar', {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            body: datos
+        });
+        json = await respuesta.json();
+        if (!json.status) {
+            alert("oOoOps, ocurrio un error al actualizar, intente nuevamente");
+            console.log(json.msg);
+            return;
+        }else{
+            alert(json.msg);
+        }
+}
+async function eliminarUsuario(id) {
+    const datos = new FormData();
+    datos.append('id_persona', id);
+    if (!confirm("Estas seguro de eliminar este usuario?")) {
+        return;
+    }
+    let respuesta = await fetch(bd_url + 'control/UsuarioController.php?tipo=eliminar', {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            body: datos
+        });
+        json = await respuesta.json();
+        if (!json.status) {
+            alert("oOoOps, ocurrio un error al eliminar, intente nuevamente");
+            console.log(json.msg);
+            return;
+        }else{
+            alert(json.msg);
+        }
+    
+}
 
 
 

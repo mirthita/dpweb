@@ -39,7 +39,28 @@ class UsuarioModel{
         }
         return $arr_usuarios;
     }
+    public function ver($id){
+        $consulta = "SELECT * FROM persona WHERE id = '$id'";
+        $sql = $this->conexion->query($consulta);
+        return $sql->fetch_object();
+    }
+    public function actualizar($id_persona, $nro_doc, $Razon_Social, $Telefono, $correo, $Departamento, $Provincia, $distrito, $Codigo_postal, $Direccion, $Rol){
+        $consulta = "UPDATE persona SET nro_identidad='$nro_doc', razon_social='$Razon_Social', telefono='$Telefono', correo='$correo', departamento='$Departamento', provincia='$Provincia', distrito='$distrito', cod_postal='$Codigo_postal', direccion='$Direccion',Rol='$Rol' WHERE id = '$id_persona'";
+        $sql = $this->conexion->query($consulta);
+        return $sql;
+    }
+    
+    public function eliminar($id_persona) {
+    $consulta = "DELETE FROM persona WHERE id = '$id_persona'";
+    $sql = $this->conexion->query($consulta);
+    return $sql;
 }
+}
+
+
+
+
+
 
 
 
